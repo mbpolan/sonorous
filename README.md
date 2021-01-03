@@ -2,6 +2,8 @@
 
 A basic React Native app that lets you create soundboards with custom soundbites.
 
+![](ios_sample.png)
+
 ## About
 
 This project came about from me wanting to experiment with Expo and React Native, along with some of its
