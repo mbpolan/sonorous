@@ -1,6 +1,6 @@
 import { Audio } from 'expo-av';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, SectionList, StyleSheet, TouchableHighlight, useColorScheme } from 'react-native';
+import { ActivityIndicator, Button, SectionList, StyleSheet, TouchableHighlight, useColorScheme } from 'react-native';
 import { BottomSheet, Icon, ListItem, SearchBar } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
@@ -33,6 +33,14 @@ export default function Soundboard(props: SoundboardProps) {
     const [selectedSound, setSelectedSound] = useState<Sound | undefined>(undefined);
     const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
     const [soundFilter, setSoundFilter] = useState<string>('');
+
+    useEffect(() => {
+        props.navigation.setOptions({
+            headerRight: () => (
+                <Button title='Add Group' onPress={handleShowNewGroupModal} />
+            )
+        });
+    }, []);
 
     useEffect(() => {
         props.navigation.setOptions({
