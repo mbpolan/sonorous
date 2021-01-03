@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, TouchableHighlight, StyleSheet } from "react-native";
+import { ActivityIndicator, TouchableHighlight, StyleSheet, Button } from "react-native";
 import { useDispatch, useSelector } from 'react-redux';
 import { CenteredContainer } from '../../components/containers';
 import Link from '../../components/Link';
 import NewBoardModal from '../../components/modals/NewBoardModal';
 import useDatabase from '../../hooks/useDatabase';
 import { ApplicationState } from '../../state/ducks';
-import { Board, BoardsState, getBoards } from '../../state/ducks/boards';
+import { Board, getBoards } from '../../state/ducks/boards';
 import Boards from './Boards';
 import Text from '../../components/Text';
 import View from '../../components/View';
@@ -26,7 +26,14 @@ export default function Home(props: HomeProps) {
     const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
 
     useEffect(() => {
-        dispatch(getBoards())
+        dispatch(getBoards());
+
+        // show a button for adding new boards in the header
+        props.navigation.setOptions({
+            headerRight: () => (
+                <Button title='Add' onPress={handleShowNewBoardModal} />
+            )
+        });
     }, []);
 
     const handleNewBoard = async (name: string, image?: string) => {

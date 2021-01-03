@@ -22,7 +22,7 @@ export default function NewBoardModal(props: NewBoardModalProps) {
 
     const handleNewBoard = () => {
         props.onSubmit(boardName, image);
-        setBoardName('');
+        resetState();
     }
 
     const handleSelectImage = async () => {
@@ -40,11 +40,20 @@ export default function NewBoardModal(props: NewBoardModalProps) {
                 setImage(file.uri);
             }
         }
+    }
 
+    const handleClose = () => {
+        resetState();
+        props.onClose();
     }
 
     const updateSaveEnabled = (name: string) => {
         setSaveEnabled(name.trim().length > 0);
+    }
+
+    const resetState = () => {
+        setBoardName('');
+        setImage(undefined);
     }
 
     return (
@@ -72,7 +81,7 @@ export default function NewBoardModal(props: NewBoardModalProps) {
 
                 <View style={styles.buttonArea}>
                     <Button style={styles.button} disabled={!saveEnabled} title='OK' onPress={handleNewBoard} />
-                    <Button style={styles.button} type='outline' title='Cancel' onPress={props.onClose} />
+                    <Button style={styles.button} type='outline' title='Cancel' onPress={handleClose} />
                 </View>
             </View>
         </Overlay>
