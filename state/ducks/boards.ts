@@ -13,6 +13,7 @@ enum BoardActionTypes {
 export interface Board {
     id: number;
     name: string;
+    image?: string;
 }
 
 export interface BoardsState {
@@ -94,7 +95,7 @@ export const getBoards = () => async (dispatch: Dispatch<BoardsActionDispatchTyp
     try {
         const rs = await executeSqlAsync(`
             SELECT 
-                id, name 
+                id, name, image
             FROM 
                 boards
         `);

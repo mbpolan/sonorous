@@ -1,15 +1,14 @@
-import { SQLError, SQLResultSet } from "expo-sqlite";
-import database, { executeSqlAsync } from "../utils/database";
+import { executeSqlAsync } from "../utils/database";
 
 export default function useDatabase() {
     return {
-        addBoard: async (name: string): Promise<number> => {
+        addBoard: async (name: string, image?: string): Promise<number> => {
             const rs = await executeSqlAsync(`
                 INSERT INTO
-                    boards (name)
+                    boards (name, image)
                 VALUES
-                    (?)
-            `, [name]);
+                    (?, ?)
+            `, [name, image]);
 
             return rs.insertId;
         },
@@ -61,7 +60,8 @@ export default function useDatabase() {
             await executeSqlAsync(`
                 CREATE TABLE IF NOT EXISTS boards (
                     id INTEGER PRIMARY KEY NOT NULL, 
-                    name VARCHAR NOT NULL
+                    name VARCHAR NOT NULL,
+                    image VARCHAR NULL
                 )
             `);
         

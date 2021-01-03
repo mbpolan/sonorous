@@ -29,11 +29,11 @@ export default function Home(props: HomeProps) {
         dispatch(getBoards())
     }, []);
 
-    const handleNewBoard = async (name: string) => {
+    const handleNewBoard = async (name: string, image?: string) => {
         setNewBoardModal(false);
 
         try {
-            await db.addBoard(name);
+            await db.addBoard(name, image);
             dispatch(getBoards());
         } catch (e) {
             console.error(e);
